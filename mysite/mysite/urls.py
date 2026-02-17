@@ -22,5 +22,5 @@ from mysite import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.homepage),
-    path('about/', views.about, kwargs = {"company_name": "GTE", "company_phone": 89009329343}),
+    path('about/', views.about),
 ]
