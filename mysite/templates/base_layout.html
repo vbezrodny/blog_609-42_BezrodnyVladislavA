@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Default title{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static '/css/style.css' %}">
+</head>
+<body>
+<header>
+    <div class="logo">
+        <a href="/">
+            <img src="{% static 'images/logo.png' %}" alt="Site Logo" width="100">
+        </a>
+    </div>
+    <nav class="navbar">
+        <ul>
+            <li><a href="{% url 'homepage' %}">Home</a></li>
+            <li><a href="{% url 'article_list' %}">Articles</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+        </ul>
+    </nav>
+    {% block login %}{% endblock login %}
+</header>
+
+{% block content %}{% endblock content %}
+
+<footer>
+    <p>&copy; 2023 My Site. All rights reserved.</p>
+</footer>
+</body>
+</html>
