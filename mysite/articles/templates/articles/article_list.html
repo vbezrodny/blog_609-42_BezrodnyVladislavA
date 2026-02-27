@@ -1,38 +1,57 @@
 {% extends "base_layout.html" %}
-{% block title %}Article List{% endblock title %}
+
+{% block title %}Список статей{% endblock title %}
+
 {% block content %}
 <main>
-    <nav>
-        <ul>
-            {% if user.is_authenticated %}
-                <li>
-                    <form class="form" action="/accounts/logout/" method="post">
-                        {% csrf_token %}
-                        <button type="submit">Logout</button>
-                    </form>
-                </li>
-            {% else %}
-                <li>
-                    <a href="{% url 'login' %}">Login</a>
-                </li>
-            {% endif %}
-        </ul>
-    </nav>
-    <h1>Article List</h1>
-    <div class="articles">
+    <h1>Наши статьи</h1>
+
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <div class="message {{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="articles featured-articles">
         {% for element in articles %}
-        <div class="article__item">
+        <article class="article__item">
             <h2>
-                <a href="{% url 'article_detail' slug=element.slug %}">
+                <a href="{% url 'article_detail' slug=element.slug %}" class="article-link">
                     {{ element.title }}
                 </a>
             </h2>
-            <p>
+
+            {% if element.snippet %}
+            <p class="article-snippet">
                 {{ element.snippet }}
             </p>
-            <time>
-                {{ element.date }}
-            </time>
+            {% endif %}
+
+            <div class="article-meta">
+                <time datetime="{{ element.date|date:'Y-m-d' }}">
+                    <span class="date-icon">📅</span>
+                    {{ element.date|date:"d E Y" }}
+                </time>
+
+                {% if element.author %}
+                <span class="author">
+                    <span class="author-icon">👤</span>
+                    {{ element.author }}
+                </span>
+                {% endif %}
+            </div>
+
+            <a href="{% url 'article_detail' slug=element.slug %}" class="read-more">
+                Читать далее →
+            </a>
+        </article>
+        {% empty %}
+        <div class="empty-state">
+            <p>Пока нет статей. Скоро они появятся!</p>
         </div>
         {% endfor %}
     </div>

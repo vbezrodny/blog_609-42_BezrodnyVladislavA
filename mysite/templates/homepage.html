@@ -1,6 +1,37 @@
 {% extends "base_layout.html" %}
 
+{% block title %}Главная - Сайт Владислава{% endblock title %}
+
 {% block content %}
-    <h1>{{ header }}</h1>
-    <p>{{ message }}</p>
+<h1>Добро пожаловать на наш сайт!</h1>
+<section class="hero-section">
+    <p>Мы делимся интересными статьями на самые разные темы. Присоединяйтесь к нашему сообществу любителей знаний!</p>
+</section>
+
+<h2>Последние статьи</h2>
+<div class="featured-articles">
+    <div class="info-card">
+        <h3>Изучайте!</h3>
+        <p>Исследуйте наш сайт и находите интересные статьи.</p>
+    </div>
+
+    {% for article in latest_articles %}
+        <article class="article__item">
+            <h3>{{ article.title }}</h3>
+            <p>{{ article.snippet }}</p>
+            {% if article.date %}
+                <time datetime="{{ article.date|date:'Y-m-d' }}">
+                    <span class="date-icon">📅</span>
+                    Опубликовано: {{ article.date|date:"d E Y" }}
+                </time>
+            {% endif %}
+
+            <a href="{% url 'article_detail' slug=article.slug %}" class="read-more">
+                Читать →
+            </a>
+        </article>
+    {% empty %}
+        <p>Пока нет статей. Скоро они появятся!</p>
+    {% endfor %}
+</div>
 {% endblock content %}

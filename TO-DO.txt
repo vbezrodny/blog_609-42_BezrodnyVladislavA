@@ -1,0 +1,21 @@
+## TO-DO: В будущем добавить комментарии отдельным приложением
+# def add_comment(request, article_id):
+#     article = get_object_or_404(Article, pk=article_id)
+#     if request.method == 'POST':
+#         text = request.POST.get('text')
+#         if text:
+#             Comment.objects.create(
+#                 article=article,
+#                 text=text,
+#                 author_name="Гость",
+#                 created_date=timezone.now()
+#             )
+#     return redirect('article_detail', article_id=article_id)
+# class Comment(models.Model):
+#     article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='comments')
+#     author_name = models.CharField(max_length=100, default="Гость")
+#     text = models.TextField()
+#     created_date = models.DateTimeField(default=timezone.now)
+#
+#     def __str__(self):
+#         return f"Комментарий к {self.article.title}"

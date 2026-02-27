@@ -1,31 +1,50 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %}Default title{% endblock title %}</title>
-    <link rel="stylesheet" href="{% static '/css/style.css' %}">
-</head>
-<body>
-<header>
-    <div class="logo">
-        <a href="/">
-            <img src="{% static 'images/logo.png' %}" alt="Site Logo" width="100">
-        </a>
-    </div>
-    <nav class="navbar">
-        <ul>
-            <li><a href="{% url 'homepage' %}">Home</a></li>
-            <li><a href="{% url 'article_list' %}">Articles</a></li>
-            <li><a href="{% url 'about' %}">About</a></li>
-        </ul>
-    </nav>
-</header>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}Сайт Владислава{% endblock title %}</title>
+        <link rel="stylesheet" href="{% static '/css/style.css' %}">
+        {% block extra_css %}{% endblock extra_css %}
+    </head>
+    <body>
+        <header>
+            <div class="logo">
+                <a href="/">
+                    <img src="{% static 'images/logo.png' %}" alt="Site Logo" width="120">
+                </a>
+            </div>
+            <nav class="navbar">
+                <ul class="nav-menu">
+                    <li><a href="{% url 'homepage' %}">Главная</a></li>
+                    <li><a href="{% url 'article_list' %}">Статьи</a></li>
+                    <li><a href="{% url 'about' %}">О нас</a></li>
 
-{% block content %}{% endblock content %}
+                    {% if user.is_authenticated %}
+                        <li class="auth-item">
+                            <form class="logout-form" action="/accounts/logout/" method="post">
+                                {% csrf_token %}
+                                <button class="logout-button" type="submit">Выйти ({{ user.username }})</button>
+                            </form>
+                        </li>
+                    {% else %}
+                        <li class="auth-item"><a href="{% url 'login' %}" class="auth-link">Войти</a></li>
+                        <li class="auth-item"><a href="{% url 'signup' %}" class="auth-link register">Регистрация</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </header>
 
-<footer>
-    <p>&copy; 2023 My Site. All rights reserved.</p>
-</footer>
-</body>
+        <main>
+            {% block content %}{% endblock content %}
+        </main>
+
+        <footer>
+                <p>&copy; 2024-2026 Мой Сайт. Все права защищены.</p>
+                <p style="font-size: 0.8em; margin-top: 10px;">Создано с любовью к знаниям</p>
+        </footer>
+
+        {% block extra_js %}{% endblock extra_js %}
+    </body>
 </html>

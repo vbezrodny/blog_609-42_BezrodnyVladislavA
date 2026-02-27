@@ -1,9 +1,61 @@
 {% extends "base_layout.html" %}
+
 {% block title %}{{ article.title }}{% endblock title %}
+
 {% block content %}
-<div class="article-detail">
+<article class="article-detail">
     <h1>{{ article.title }}</h1>
-    <img src="{{ article.thumbnail.url }}" alt="">
-    <p>{{ article.body }}</p>
-</div>
+
+    <div class="article-meta-detail">
+        {% if article.date %}
+        <time datetime="{{ article.date|date:'Y-m-d' }}">
+            <span class="date-icon">📅</span>
+            Опубликовано: {{ article.date|date:"d E Y" }}
+        </time>
+        {% endif %}
+
+        {% if article.author %}
+        <span class="author-detail">
+            <span class="author-icon">👤</span>
+            Автор: {{ article.author }}
+        </span>
+        {% endif %}
+    </div>
+
+    {% if article.thumbnail %}
+    <div class="article-image-container">
+        <img src="{{ article.thumbnail.url }}" alt="{{ article.title }}" class="article-image">
+    </div>
+    {% endif %}
+
+    <div class="article-content">
+        {{ article.body|linebreaks }}
+    </div>
+
+    <div class="article-navigation">
+        <a href="{% url 'article_list' %}" class="back-button">
+            ← Вернуться к списку статей
+        </a>
+    </div>
+</article>
+
+<!-- Секция комментариев (опционально) -->
+{% if article.comments_enabled %}
+<section class="comments-section">
+    <h3>Комментарии</h3>
+
+    <div class="comments-list">
+        <!-- Здесь будут комментарии, если они есть в модели -->
+    </div>
+
+    <div class="add-comment">
+        <h4>Оставить комментарий</h4>
+        <form method="post" action="{% url 'add_comment' article.id %}">
+            {% csrf_token %}
+            <textarea name="comment" rows="4" placeholder="Ваш комментарий..." required></textarea>
+            <button type="submit">Отправить</button>
+        </form>
+    </div>
+</section>
+{% endif %}
 {% endblock content %}
