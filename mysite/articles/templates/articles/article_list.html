@@ -2,6 +2,22 @@
 {% block title %}Article List{% endblock title %}
 {% block content %}
 <main>
+    <nav>
+        <ul>
+            {% if user.is_authenticated %}
+                <li>
+                    <form class="form" action="/accounts/logout/" method="post">
+                        {% csrf_token %}
+                        <button type="submit">Logout</button>
+                    </form>
+                </li>
+            {% else %}
+                <li>
+                    <a href="{% url 'login' %}">Login</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
     <h1>Article List</h1>
     <div class="articles">
         {% for element in articles %}
