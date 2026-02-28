@@ -1,12 +1,12 @@
 {% extends "base_layout.html" %}
 
-{% block title %}Создать статью!{% endblock title %}
+{% block title %}Создать или обновить статью{% endblock title %}
 
 {% block content %}
 <div class="auth-container article-create-container">
-    <h1>Создать новую статью</h1>
+    <h1>Создать или обновить статью</h1>
 
-    <form class="auth-form article-form" action="{% url 'articles:article_create' %}" method="post" enctype="multipart/form-data">
+    <form class="auth-form article-form form" method="post" enctype="multipart/form-data">
         {% csrf_token %}
 
         {% if form.non_field_errors %}

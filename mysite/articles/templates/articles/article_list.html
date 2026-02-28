@@ -17,7 +17,7 @@
     {% endif %}
 
     {% if user.is_authenticated %}
-        <a href="{% url 'articles:article_create' %}" class="read-more create-button">
+        <a href="{% url 'articles:article_form' %}" class="read-more create-button">
                     Создать статью 📝
         </a>
     {% endif %}

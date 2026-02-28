@@ -778,7 +778,7 @@ footer {
 /* Адаптивность для форм */
 @media (max-width: 768px) {
     .auth-container {
-        margin: 20px;
+        margin: 20px auto;
         padding: 30px 20px;
     }
 
@@ -1158,6 +1158,10 @@ footer {
     border: 2px dashed #818f71;
 }
 
+.file-group {
+    color: #ffa500;
+}
+
 .file-group input[type="file"] {
     padding: 10px;
     background: #1a1f1c;
@@ -1275,6 +1279,7 @@ footer {
     box-shadow: 0 5px 15px rgba(189, 191, 178, 0.3);
 }
 
+
 /* Индикатор прогресса заполнения (опционально) */
 .form-progress {
     margin-bottom: 20px;
@@ -1374,4 +1379,40 @@ footer {
     width: 100%;
     height: auto;
     display: block;
+}
+
+
+/* Стили для страниц с подтверждением удаления */
+.article-confirm-delete_form{
+    margin: 10px 20px;
+}
+
+.cancel-button.btn-danger, .cancel-button.btn-secondary {
+    margin: 20px 0;
+}
+
+.cancel-button.btn-danger {
+    width: 100%;
+}
+
+.cancel-button.btn-danger:hover {
+    background-color: #ff6b6b;
+}
+
+.update-delete-buttons {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 0 28px;
+}
+
+.btn-warning {
+    color: #ffa500;
+}
+
+.btn-danger {
+    color: #ff6b6b;
+}
+
+.btn-warning:hover, .btn-danger:hover {
+    color: #161a18;
 }

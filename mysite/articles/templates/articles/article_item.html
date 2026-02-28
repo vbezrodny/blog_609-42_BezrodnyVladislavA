@@ -22,6 +22,17 @@
         {% endif %}
     </div>
 
+    {% if user.is_authenticated and user.id == article.author.id %}
+        <div class="update-delete-buttons">
+            <a class="btn-danger" href="{% url 'articles:article_delete' slug=article.slug %}">
+                Удалить
+            </a>
+            <a class="btn-warning" href="{% url 'articles:article_update' slug=article.slug %}">
+                Обновить запись
+            </a>
+        </div>
+    {% endif %}
+
     {% if article.thumbnail %}
     <div class="article-image-container">
         <img src="{{ article.thumbnail.url }}" alt="{{ article.title }}" class="article-image">

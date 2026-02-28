@@ -1,0 +1,18 @@
+{% extends "base_layout.html" %}
+
+{% block title %}{{ article.title }}{% endblock title %}
+
+{% block content %}
+<div class="article-confirm-delete">
+  <h1>Подтверждение</h1>
+  <h2>Вы уверены, что хотите удалить статью?</h2>
+  <div class="article-confirm-delete_form">
+      <form class="form" method="post">
+    {% csrf_token %}
+
+    <button type="submit" class="cancel-button btn-danger">Да</button>
+    <a href="{% url 'articles:article_list' %}" class="cancel-button btn-secondary">Отменить</a>
+  </form>
+  </div>
+</div>
+{% endblock content %}
