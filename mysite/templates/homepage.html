@@ -26,7 +26,7 @@
                 </time>
             {% endif %}
 
-            <a href="{% url 'article_detail' slug=article.slug %}" class="read-more">
+            <a href="{% url 'articles:article_detail' slug=article.slug %}" class="read-more">
                 Читать →
             </a>
         </article>

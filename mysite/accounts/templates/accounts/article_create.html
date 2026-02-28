@@ -1,0 +1,54 @@
+{% extends "base_layout.html" %}
+
+{% block title %}Создать статью!{% endblock title %}
+
+{% block content %}
+<div class="auth-container article-create-container">
+    <h1>Создать новую статью</h1>
+
+    <form class="auth-form article-form" action="{% url 'articles:article_create' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+        <div class="form-errors">
+            {% for error in form.non_field_errors %}
+                <p class="error">{{ error }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% for field in form %}
+        <div class="form-group {% if field.field.widget.input_type == 'file' %}file-group{% endif %}">
+            <label for="{{ field.id_for_label }}">
+                {{ field.label }}
+                {% if field.field.required %}
+                    <span class="required">*</span>
+                {% endif %}
+            </label>
+
+            {{ field }}
+
+            {% if field.help_text %}
+            <small class="help-text">{{ field.help_text }}</small>
+            {% endif %}
+
+            {% if field.errors %}
+            <div class="field-errors">
+                {% for error in field.errors %}
+                    <small class="error">{{ error }}</small>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+
+        <div class="form-actions">
+            <button type="submit" class="auth-button create-button">
+                <span class="button-icon">✏️</span>
+                Создать статью
+            </button>
+            <a href="{% url 'articles:article_list' %}" class="cancel-button">Отмена</a>
+        </div>
+    </form>
+</div>
+{% endblock content %}

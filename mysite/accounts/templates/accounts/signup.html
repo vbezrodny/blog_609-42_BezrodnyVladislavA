@@ -6,7 +6,7 @@
 <div class="auth-container">
     <h1>Регистрация</h1>
 
-    <form class="auth-form" action="/accounts/signup/" method="post">
+    <form class="auth-form" action="{% url 'accounts:signup' %}" method="post">
         {% csrf_token %}
 
         {% if form.non_field_errors %}
@@ -34,11 +34,15 @@
         </div>
         {% endfor %}
 
+        {% if request.GET.next %}
+            <input type="hidden" name="next" value="{{ request.GET.next }}">
+        {% endif %}
+
         <button type="submit" class="auth-button">Зарегистрироваться</button>
     </form>
 
     <div class="auth-links">
-        <p>Уже есть аккаунт? <a href="{% url 'login' %}">Войти</a></p>
+        <p>Уже есть аккаунт? <a href="{% url 'accounts:login' %}">Войти</a></p>
     </div>
 </div>
 {% endblock content %}
